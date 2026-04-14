@@ -5,6 +5,7 @@ public class VoteCheckerGUI {
 
     public static void main(String[] args) {
 
+        // Frame
         JFrame frame = new JFrame("Vote Checker App");
         frame.setSize(500, 320);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,12 +31,11 @@ public class VoteCheckerGUI {
         txtAge.setBounds(120, 70, 150, 25);
         frame.add(txtAge);
 
-        // Sex label
+        // Sex
         JLabel lblSex = new JLabel("Sex:");
         lblSex.setBounds(30, 110, 100, 25);
         frame.add(lblSex);
 
-        // Radio buttons
         JRadioButton male = new JRadioButton("Male");
         male.setBounds(120, 110, 70, 25);
 
@@ -49,7 +49,7 @@ public class VoteCheckerGUI {
         frame.add(male);
         frame.add(female);
 
-        // Check button
+        // Button
         JButton btnCheck = new JButton("Check");
         btnCheck.setBounds(100, 170, 120, 35);
         frame.add(btnCheck);
@@ -77,20 +77,24 @@ public class VoteCheckerGUI {
                         gender = "Female";
                     }
 
+                    // Validation
                     if (name.isEmpty() || gender.isEmpty()) {
                         resultBox.setText("Please fill all fields!");
                         return;
                     }
 
+                    // Result
                     if (age >= 18) {
                         resultBox.setText(
                             "Name: " + name +
+                            "\nAge: " + age +
                             "\nSex: " + gender +
                             "\n\nYou are eligible to vote."
                         );
                     } else {
                         resultBox.setText(
                             "Name: " + name +
+                            "\nAge: " + age +
                             "\nSex: " + gender +
                             "\n\nYou are NOT eligible to vote."
                         );
@@ -102,6 +106,7 @@ public class VoteCheckerGUI {
             }
         });
 
+        // Show frame
         frame.setVisible(true);
     }
 }
