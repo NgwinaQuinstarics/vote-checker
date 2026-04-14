@@ -6,7 +6,7 @@ public class VoteChecker {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("=== VOTE CHECKER APP ===");
+        System.out.println(" VOTE CHECKER APP ");
 
         System.out.print("Enter your name: ");
         String name = input.nextLine();
@@ -14,7 +14,7 @@ public class VoteChecker {
         System.out.print("Enter your age: ");
         int age = input.nextInt();
 
-        System.out.println("\n--- RESULT ---");
+        System.out.println("\n RESULT ");
 
         if (age >= 18) {
             System.out.println(name + ", you are eligible to vote ✅");

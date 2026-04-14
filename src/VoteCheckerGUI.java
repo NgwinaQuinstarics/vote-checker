@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.Image;
+import java.io.File;
 
 public class VoteCheckerGUI {
 
     public static void main(String[] args) {
 
-        // Frame
         JFrame frame = new JFrame("Vote Checker App");
-        frame.setSize(500, 320);
+        frame.setSize(520, 360);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
@@ -49,15 +50,48 @@ public class VoteCheckerGUI {
         frame.add(male);
         frame.add(female);
 
-        // Button
+        // Check button
         JButton btnCheck = new JButton("Check");
         btnCheck.setBounds(100, 170, 120, 35);
         frame.add(btnCheck);
 
-        // ===== RIGHT SIDE (RESULT BOX) =====
+        // ===== PROFILE PICTURE (TOP RIGHT) =====
+
+        JLabel picLabel = new JLabel();
+        picLabel.setBounds(300, 20, 150, 100);
+        picLabel.setBorder(BorderFactory.createTitledBorder("Profile"));
+        frame.add(picLabel);
+
+        JButton btnUpload = new JButton("Choose Image");
+        btnUpload.setBounds(300, 130, 150, 25);
+        frame.add(btnUpload);
+
+        // Image chooser action
+        btnUpload.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(frame);
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+
+                    // Resize image to fit label
+                    Image img = imageIcon.getImage().getScaledInstance(
+                            picLabel.getWidth(),
+                            picLabel.getHeight(),
+                            Image.SCALE_SMOOTH
+                    );
+
+                    picLabel.setIcon(new ImageIcon(img));
+                }
+            }
+        });
+
+        // ===== RESULT BOX =====
 
         JTextArea resultBox = new JTextArea();
-        resultBox.setBounds(300, 30, 160, 180);
+        resultBox.setBounds(300, 170, 180, 120);
         resultBox.setEditable(false);
         resultBox.setBorder(BorderFactory.createTitledBorder("Result"));
         frame.add(resultBox);
@@ -77,26 +111,24 @@ public class VoteCheckerGUI {
                         gender = "Female";
                     }
 
-                    // Validation
                     if (name.isEmpty() || gender.isEmpty()) {
                         resultBox.setText("Please fill all fields!");
                         return;
                     }
 
-                    // Result
                     if (age >= 18) {
                         resultBox.setText(
-                            "Name: " + name +
-                            "\nAge: " + age +
-                            "\nSex: " + gender +
-                            "\n\nYou are eligible to vote."
+                                "Name: " + name +
+                                "\nAge: " + age +
+                                "\nSex: " + gender +
+                                "\n\nEligible to vote"
                         );
                     } else {
                         resultBox.setText(
-                            "Name: " + name +
-                            "\nAge: " + age +
-                            "\nSex: " + gender +
-                            "\n\nYou are NOT eligible to vote."
+                                "Name: " + name +
+                                "\nAge: " + age +
+                                "\nSex: " + gender +
+                                "\n\nNOT eligible to vote"
                         );
                     }
 
@@ -106,7 +138,6 @@ public class VoteCheckerGUI {
             }
         });
 
-        // Show frame
         frame.setVisible(true);
     }
 }
